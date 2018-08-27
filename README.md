@@ -2,13 +2,13 @@
 Search项目是基于ElasticSearch搜索服务提供的简易API调用，支持以下功能
 ---------------
 ## 数据索引
-* [添加索引数据] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/BaseInsert.java)
-* [更新索引数据(UpdateById/UpdateByQuery)] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/BaseUpdate.java)
-* [数据批量操作(批量添加/删除/修改)] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/BulkOperation.java)
-* [路由(routing)] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/RoutingOperation.java)
-* [建议查询(Suggest)] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/SuggestSearch.java)
-* [Mustache模板查询] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/TemplateSearch.java)
-* [索引数据删除(DeleteById/DeleteByQuery/DeleteByType)] (https://git.58qf.com/business/qfelasticsearch/blob/dev_platform/es-common/src/main/java/com/qf58/search/index/BaseDelete.java)
+* [添加索引数据] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/BaseInsert.java)
+* [更新索引数据(UpdateById/UpdateByQuery)] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/BaseUpdate.java)
+* [数据批量操作(批量添加/删除/修改)] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/BulkOperation.java)
+* [路由(routing)] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/RoutingOperation.java)
+* [建议查询(Suggest)] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/SuggestSearch.java)
+* [Mustache模板查询] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/TemplateSearch.java)
+* [索引数据删除(DeleteById/DeleteByQuery/DeleteByType)] (https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/index/BaseDelete.java)
 ---------------
 ## 检索功能
 ### 检索功能,支持基本逻辑查询：
