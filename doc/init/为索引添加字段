@@ -1,0 +1,13 @@
+为索引self_index_v1的self_type类型添加字段
+PUT http://172.16.11.119:9200/self_index_v1/_mapping/self_type
+==>
+{
+	"self_type": {
+		"properties":{
+			"serviceAdvantage":{
+				"type":  "text",
+        		"index": "not_analyzed"
+			}
+		}
+	}
+}

@@ -1,0 +1,3 @@
+autocomplete:不分词且展示边缘值
+http://192.168.20.114:9200/baidu_index/_analyze?text=刘德华AT2016&analyzer=full_prefix_analyzer
+http://192.168.20.114:9200/baidu_index/_search?q=full_name:jiali&analyzer=keyword

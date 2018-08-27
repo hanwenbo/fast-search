@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright 2016 Nikita Koksharov
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<xsd:schema version="1.0"
+            xmlns="http://www.58qf.com/schema/search"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            targetNamespace="http://www.58qf.com/schema/search"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+    <xsd:import namespace="http://www.springframework.org/schema/beans"
+                schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+
+    <xsd:annotation>
+        <xsd:documentation>
+            <![CDATA[ Namespace support for the Redisson in Spring Framework ]]>
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <!-- base types -->
+    <xsd:complexType name="idType" abstract="true">
+        <xsd:attribute name="id" type="xsd:string" />
+    </xsd:complexType>
+
+    <xsd:complexType abstract="true" name="clientType">
+        <xsd:complexContent>
+            <xsd:extension base="idType">
+                <xsd:sequence>
+                    <xsd:element ref="cluster-servers" minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+
+    <xsd:element name="client">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="clientType" />
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+
+
+
+    <xsd:complexType abstract="true" name="baseMasterSlaveServersConfig">
+        <xsd:attribute name="cluster-name" type="xsd:string">
+        </xsd:attribute>
+        <xsd:attribute name="ping-timeout" type="xsd:string">
+        </xsd:attribute>
+        <xsd:attribute name="ignore-cluster-name" type="xsd:boolean">
+        </xsd:attribute>
+        <xsd:attribute name="cluster-sniff" type="xsd:boolean">
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:element name="cluster-servers">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="abstractClusterType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType abstract="true" name="abstractClusterType">
+        <xsd:complexContent>
+            <xsd:extension base="baseMasterSlaveServersConfig">
+                <xsd:sequence>
+                    <xsd:element ref="node-address" minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType abstract="true" name="serverAddr">
+        <xsd:attribute name="value" type="xsd:string" />
+    </xsd:complexType>
+
+    <xsd:element name="node-address">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="serverAddr" />
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+
+
+
+
+</xsd:schema>

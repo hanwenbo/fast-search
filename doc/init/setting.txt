@@ -1,0 +1,509 @@
+获取索引配置：  GET  http://172.16.11.119:9200/supplier_index/_settings
+==>
+{
+    "supplier_index": {
+        "settings": {
+            "index": {
+                "refresh_interval": "1s",
+                "number_of_shards": "2",
+                "provided_name": "supplier_index",
+                "creation_date": "1528175417715",
+                "analysis": {
+                    "filter": {
+                        "pinyin_first_letter_and_full_pinyin_filter": {
+                            "keep_joined_full_pinyin": "true",
+                            "keep_none_chinese_in_first_letter": "true",
+                            "lowercase": "true",
+                            "keep_original": "false",
+                            "keep_first_letter": "true",
+                            "trim_whitespace": "true",
+                            "type": "pinyin",
+                            "keep_none_chinese": "false",
+                            "limit_first_letter_length": "16",
+                            "keep_full_pinyin": "false"
+                        },
+                        "autocomplete_filter": {
+                            "type": "edge_ngram",
+                            "min_gram": "1",
+                            "max_gram": "15"
+                        },
+                        "full_pinyin_filter": {
+                            "keep_joined_full_pinyin": "true",
+                            "keep_none_chinese_in_first_letter": "true",
+                            "lowercase": "true",
+                            "keep_original": "true",
+                            "keep_first_letter": "true",
+                            "trim_whitespace": "true",
+                            "type": "pinyin",
+                            "keep_none_chinese": "false",
+                            "limit_first_letter_length": "16",
+                            "keep_full_pinyin": "false"
+                        }
+                    },
+                    "analyzer": {
+                        "chinese_analyzer": {
+                            "filter": [
+                                "lowercase",
+                                "autocomplete_filter"
+                            ],
+                            "char_filter": [
+                                "html_strip"
+                            ],
+                            "type": "custom",
+                            "tokenizer": "keyword"
+                        },
+                        "full_prefix_analyzer": {
+                            "filter": [
+                                "lowercase",
+                                "full_pinyin_filter",
+                                "autocomplete_filter"
+                            ],
+                            "char_filter": [
+                                "html_strip"
+                            ],
+                            "type": "custom",
+                            "tokenizer": "keyword"
+                        },
+                        "pinyin_analyzer": {
+                            "filter": [
+                                "pinyin_first_letter_and_full_pinyin_filter",
+                                "autocomplete_filter"
+                            ],
+                            "char_filter": [
+                                "html_strip"
+                            ],
+                            "type": "custom",
+                            "tokenizer": "keyword"
+                        }
+                    }
+                },
+                "number_of_replicas": "1",
+                "uuid": "jGquRxITT1KuhIE-QoZbKw",
+                "version": {
+                    "created": "5050099"
+                }
+            }
+        }
+    }
+}
+
+
+获取mappings配置 : GET  http://172.16.11.119:9200/supplier_index/_mapping
+==>
+{
+    "supplier_index": {
+        "mappings": {
+            "category_type": {
+                "properties": {
+                    "advanceCharge": {
+                        "type": "long"
+                    },
+                    "beginMembers": {
+                        "type": "long"
+                    },
+                    "beginMoney": {
+                        "type": "long"
+                    },
+                    "categoryId": {
+                        "type": "long"
+                    },
+                    "categoryJoinId": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "categoryJoinName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "cityIds": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "clearRequirment": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "commMode": {
+                        "type": "long"
+                    },
+                    "commRate": {
+                        "type": "long"
+                    },
+                    "createTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    },
+                    "evaluateRate": {
+                        "type": "long"
+                    },
+                    "id": {
+                        "type": "long"
+                    },
+                    "invoiceTaxPoint": {
+                        "type": "long"
+                    },
+                    "invoiceType": {
+                        "type": "long"
+                    },
+                    "isDel": {
+                        "type": "integer"
+                    },
+                    "isSpecial": {
+                        "type": "long"
+                    },
+                    "isTest": {
+                        "type": "long"
+                    },
+                    "orderNum": {
+                        "type": "long"
+                    },
+                    "orderStatus": {
+                        "type": "long"
+                    },
+                    "otherRequirment": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "platformMode": {
+                        "type": "long"
+                    },
+                    "promiseIds": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "receiveCondition": {
+                        "type": "long"
+                    },
+                    "suppilerType": {
+                        "type": "long"
+                    },
+                    "supplierId": {
+                        "type": "long"
+                    },
+                    "supplierName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "updateTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    },
+                    "weight": {
+                        "type": "long"
+                    }
+                }
+            },
+            "goods_type": {
+                "properties": {
+                    "attrIds": {
+                        "type": "text"
+                    },
+                    "auditStatus": {
+                        "type": "integer"
+                    },
+                    "auditorId": {
+                        "type": "long"
+                    },
+                    "brandId": {
+                        "type": "long"
+                    },
+                    "brandName": {
+                        "type": "text"
+                    },
+                    "cateId": {
+                        "type": "long"
+                    },
+                    "cateJoinId": {
+                        "type": "text"
+                    },
+                    "cateJoinName": {
+                        "type": "text"
+                    },
+                    "cateName": {
+                        "type": "text"
+                    },
+                    "cityIds": {
+                        "type": "text"
+                    },
+                    "createTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    },
+                    "goodsImage": {
+                        "type": "text"
+                    },
+                    "goodsImageId": {
+                        "type": "long"
+                    },
+                    "goodsName": {
+                        "type": "text"
+                    },
+                    "goodsStorage": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "long"
+                    },
+                    "isDel": {
+                        "type": "integer"
+                    },
+                    "lineStatus": {
+                        "type": "integer"
+                    },
+                    "marketPrice": {
+                        "type": "integer"
+                    },
+                    "saleNum": {
+                        "type": "integer"
+                    },
+                    "shopId": {
+                        "type": "long"
+                    },
+                    "skuId": {
+                        "type": "long"
+                    },
+                    "specOpen": {
+                        "type": "integer"
+                    },
+                    "startTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    },
+                    "supplierId": {
+                        "type": "long"
+                    },
+                    "supplierName": {
+                        "type": "text"
+                    },
+                    "updateTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    }
+                }
+            },
+            "supplier_type": {
+                "properties": {
+                    "address": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "businessLevel": {
+                        "type": "long"
+                    },
+                    "cashDeposit": {
+                        "type": "long"
+                    },
+                    "categoryIds": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "chargeEmail": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "chargeName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "chargePhone": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "cityId": {
+                        "type": "long"
+                    },
+                    "cityIds": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "companyProfile": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "countryId": {
+                        "type": "long"
+                    },
+                    "createTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    },
+                    "establishYear": {
+                        "type": "long"
+                    },
+                    "goodsNum": {
+                        "type": "long"
+                    },
+                    "id": {
+                        "type": "long"
+                    },
+                    "isDel": {
+                        "type": "integer"
+                    },
+                    "isTest": {
+                        "type": "long"
+                    },
+                    "isUsed": {
+                        "type": "long"
+                    },
+                    "memberRange": {
+                        "type": "long"
+                    },
+                    "orderStatus": {
+                        "type": "long"
+                    },
+                    "orderSum": {
+                        "type": "long"
+                    },
+                    "provinceId": {
+                        "type": "long"
+                    },
+                    "serviceAdvantage": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "serviceCategoryIds": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "serviceDisadvantage": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "simpleName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "status": {
+                        "type": "long"
+                    },
+                    "supplierName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "typicalCustomer": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "updateTime": {
+                        "type": "date",
+                        "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+                    },
+                    "userAccount": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+

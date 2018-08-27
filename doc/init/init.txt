@@ -1,0 +1,326 @@
+POST http://172.16.11.119:9200/supplier_index/supplier_type/_delete_by_query
+{
+	"query": {
+		"match_all": {}
+	}
+}
+
+POST http://172.16.11.117:9200/supplier_index/category_type/2019824850492800/_update
+{
+	"doc":{
+		"weight":1
+	}
+}
+
+POST http://172.16.11.117:9200/supplier_index/category_type/_search
+{
+	"query":{
+		"term":{
+			"supplierId":"2019777207410049"
+		}
+	}
+}
+
+DELETE http://172.16.11.119:9200/supplier_index
+
+
+PUT http://172.16.11.117:9200/supplier_index
+{
+  "settings":{
+    "refresh_interval":"1s",
+    "number_of_replicas":1,
+    "number_of_shards":2,
+    "analysis":{
+      "filter":{
+        "autocomplete_filter":{
+          "type":"edge_ngram",
+          "min_gram":1,
+          "max_gram":15
+        },
+        "pinyin_first_letter_and_full_pinyin_filter" : {
+          "type" : "pinyin",
+          "keep_first_letter" : true,
+          "keep_full_pinyin" : false,
+          "keep_joined_full_pinyin": true,
+          "keep_none_chinese" : false,
+          "keep_original" : false,
+          "limit_first_letter_length" : 16,
+          "lowercase" : true,
+          "trim_whitespace" : true,
+          "keep_none_chinese_in_first_letter" : true
+        },
+        "full_pinyin_filter" : {
+          "type" : "pinyin",
+          "keep_first_letter" : true,
+          "keep_full_pinyin" : false,
+          "keep_joined_full_pinyin": true,
+          "keep_none_chinese" : false,
+          "keep_original" : true,
+          "limit_first_letter_length" : 16,
+          "lowercase" : true,
+          "trim_whitespace" : true,
+          "keep_none_chinese_in_first_letter" : true
+        }
+      },
+      "analyzer":{
+        "full_prefix_analyzer":{
+          "type":"custom",
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer":"keyword",
+          "filter":[
+            "lowercase",
+            "full_pinyin_filter",
+            "autocomplete_filter"
+          ]
+        },
+        "chinese_analyzer":{
+          "type":"custom",
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer":"keyword",
+          "filter":[
+            "lowercase",
+            "autocomplete_filter"
+          ]
+        },
+        "pinyin_analyzer":{
+          "type":"custom",
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer":"keyword",
+          "filter":[
+            "pinyin_first_letter_and_full_pinyin_filter",
+            "autocomplete_filter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings":{
+    "supplier_type": {
+      "properties": {
+        "id": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "provinceId": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "cityId": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "countryId": {
+          "type":  "long"
+        },
+        "address": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "supplierName": {
+          "type":  "text",
+          "analyzer": "full_prefix_analyzer"
+        },
+        "simpleName": {
+          "type":  "keyword"
+        },
+        "categoryIds": {
+          "type":  "string"
+        },
+        "cityIds": {
+          "type":  "string"
+        },
+        "chargeName": {
+          "type":  "keyword",
+          "index": "not_analyzed"
+        },
+        "chargePhone": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "chargeEmail": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "establishYear": {
+          "type":  "integer"
+        },
+        "memberRange": {
+          "type":  "integer"
+        },
+        "typicalCustomer": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "status": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "orderStatus": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "isUsed": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "businessLevel": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "orderSum": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "userAccount": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "cashDeposit": {
+          "type":  "integer"
+        },
+        "companyProfile": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "serviceAdvantage": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "serviceDisadvantage": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "isDel": {
+          "type":  "integer"
+        },
+        "isTest": {
+          "type":  "integer"
+        },
+        "createTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        },
+        "updateTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        }
+      }
+    },
+    "category_type":{
+      "properties":{
+        "id": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "supplierId":{
+          "type":"long"
+        },
+        "supplierName":{
+          "type":  "text",
+          "analyzer": "full_prefix_analyzer"
+        },
+        "categoryId": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "categoryName": {
+          "type":  "keyword"
+        },
+        "cityIds": {
+          "type":  "string"
+        },
+        "promiseIds": {
+          "type":  "string"
+        },
+        "isSpecial": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "platformMode": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "invoiceType": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "invoiceTaxPoint": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "receiveCondition": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "beginMoney": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "beginMembers": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "advanceCharge": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "clearRequirment": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "otherRequirment": {
+          "type":  "text",
+          "index": "not_analyzed"
+        },
+        "suppilerType": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "commRate": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "orderState": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "weight": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "evaluateRate": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "isDel": {
+          "type":  "integer",
+          "index": "not_analyzed"
+        },
+        "isTest": {
+          "type":  "integer"
+        },
+        "createTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        },
+        "updateTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        },
+        "scores":{
+          "type":"nested",
+          "properties":{
+            "property":{"type":"integer"},
+            "score":{"type":"integer"}
+          }
+        }
+      }
+    }
+  }
+}

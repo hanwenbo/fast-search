@@ -1,0 +1,126 @@
+模拟平滑升级场景
+一、创建原索引信息
+1.添加索引+带版本号：PUT  http://172.16.11.119:9200/self_index_v1
+{
+  "settings":{
+    "refresh_interval":"1s",
+    "analysis":{
+      "filter":{
+        "autocomplete_filter":{
+          "type":"edge_ngram",
+          "min_gram":1,
+          "max_gram":15
+        }
+      }
+    }
+  },
+  "mappings":{
+    "self_type": {
+      "properties": {
+        "id": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "createTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        },
+        "updateTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        }
+      }
+    }
+  }
+}
+
+                                               index               type
+(2.不进行操作)索引添加字段：PUT  http://172.16.11.119:9200/self_index_v1/_mapping/self_type
+{
+	"self_type": {
+		"properties":{
+			"serviceAdvantage":{
+				"type":  "text",
+        		"index": "not_analyzed"
+			}
+		}
+	}
+}
+修改字段不被允许
+
+
+二.添加索引别名：alias self_index
+POST http://172.16.11.119:9200/_aliases
+{
+	"actions": [
+		{
+			"add":{
+				"alias":"self_index",
+				"index":"self_index_v1"
+			}
+		}
+	]
+}
+==> 操作索引self_index_v1 可以使用其别名 self_index 进行操作
+
+
+三.升级索引
+
+1.添加索引+带版本号(创建替代索引)： PUT http://172.16.11.119:9200/self_index_v2
+{
+  "settings":{
+    "refresh_interval":"1s",
+    "analysis":{
+      "filter":{
+        "autocomplete_filter":{
+          "type":"edge_ngram",
+          "min_gram":1,
+          "max_gram":15
+        }
+      }
+    }
+  },
+  "mappings":{
+    "self_type": {
+      "properties": {
+        "id": {
+          "type":  "long",
+          "index": "not_analyzed"
+        },
+        "createTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        },
+        "updateTime": {
+          "type":  "date",
+          "format": "MMM dd, yyyy hh:mm:ss aa||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis"
+        }
+      }
+    }
+  }
+}
+(2.)利用升级后的ES数据结构同步数据库数据
+
+
+四、替换索引别名绑定  self_index与之前索引的绑定信息(self_index_v1) 替换为现在的索引(self_index_v2)
+POST http://172.16.11.119:9200/_aliases
+{
+    "actions": [
+        { "remove": {
+            "alias": "self_index",
+            "index": "self_index_v1"
+        }},
+        { "add": {
+            "alias": "self_index",
+            "index": "self_index_v2"
+        }}
+    ]
+}
+
+
+
+
+
+
+
+

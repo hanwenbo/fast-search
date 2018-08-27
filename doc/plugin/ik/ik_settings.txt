@@ -1,0 +1,26 @@
+IK 分词搜索
+http://192.168.20.114:9200/ik_index/ik_type/_search/
+{
+    "query": {
+        "multi_match": {
+            "query": "摒弃忧伤一颗心",
+            "type": "cross_fields",
+            "fields": [
+                "full_name",
+                "content"
+            ]
+        }
+    },
+    "highlight": {
+        "pre_tags": [
+            "<b>"
+        ],
+        "post_tags": [
+            "</b>"
+        ],
+        "fields": {
+            "full_name": {},
+             "content":{}
+        }
+    }
+}

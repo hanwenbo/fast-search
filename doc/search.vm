@@ -1,0 +1,1 @@
+-server -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:ConcGCThreads=2 -XX:CMSInitiatingOccupancyFraction=70 -XX:CMSFullGCsBeforeCompaction=2 -XX:SurvivorRatio=3 -Xmx1024m -Xms1024m -Xmn512m -Xss256k

@@ -1,0 +1,92 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "age": {
+              "value": 39
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "firstname": {
+                    "value": "Rosalinda"
+                  }
+                }
+              },
+              {
+                "term": {
+                  "gender": {
+                    "value": "M"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "age": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "term": {
+                  "age": {
+                    "value": 31
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "gender": {
+                    "value": "F"
+                  }
+                }
+              },
+              {
+                "term": {
+                  "gender": {
+                    "value": "M"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
