@@ -203,7 +203,7 @@ curl -XPUT http://XXX.XXX.XXX.XXX:9200/g_i -d '
 
 ---------------
 ## 聚合功能
-[聚合查询](https://git.58qf.com/business/qfelasticsearch/tree/dev_platform/es-common/src/main/java/com/qf58/search/index/aggr)
+[聚合查询](https://github.com/ZhuBaker/fast-search/tree/master/fast-common/src/main/java/com/github/search/search/index/aggr)
 
 ---------------
 # 自定义Spring标签
@@ -211,9 +211,9 @@ curl -XPUT http://XXX.XXX.XXX.XXX:9200/g_i -d '
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:search="http://www.58qf.com/schema/search"
+       xmlns:search="http://www.fast-search.com/schema/search"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-      http://www.58qf.com/schema/search http://www.58qf.com/schema/search/search-1.1.xsd">
+      http://www.fast-search.com/schema/search http://www.fast-search.com/schema/search/search-1.1.xsd">
 
     <search:client id="esConnect">
         <search:cluster-servers cluster-name="elasticsearch" ping-timeout="10s" ignore-cluster-name="true" cluster-sniff="true">

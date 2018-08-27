@@ -17,10 +17,10 @@
 
 -->
 <xsd:schema version="1.0"
-            xmlns="http://www.58qf.com/schema/search"
+            xmlns="http://www.fast-search.com/schema/search"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:beans="http://www.springframework.org/schema/beans"
-            targetNamespace="http://www.58qf.com/schema/search"
+            targetNamespace="http://www.fast-search.com/schema/search"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
     <xsd:import namespace="http://www.springframework.org/schema/beans"
